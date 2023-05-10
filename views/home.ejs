@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="/css/styles.css" rel="stylesheet">
+
+  <title>TODO LIST APP</title>
+
+</head>
+
+
+<body>
+    <center><h1>Todo List</h1></center> 
+    <div class="app">
+       
+  <div class="input_container container bg-info">
+    <center>
+  
+    </center>
+    <form action="/createTodo" method="post">
+      <label for="description">Description:</label>
+      <input type="text" name="description" required id="description">
+
+      <label for="category">Category:</label>
+      <select required name="category" id="category">
+        <option value="select a category" disabled selected>select a category</option>
+        <option value="personal">personal</option>
+        <option value="work">work</option>
+        <option value="school">school</option>
+        <option value="health">health</option>
+        <option value="other">other</option>
+      </select>
+
+      <label for="due_date">Due Date:</label>
+      <input type="date" id="due_date" name="due_date">
+
+      <button type="submit">Add task</button>
+     
+    </form>
+</div>
+<div id="todo_items" class=" container bg-danger-subtle">
+    <form action="/deleteTodo" method="post">
+       
+       
+      <button id="deletebtn" type="submit" style="background-color: red">Delete tasks</button>
+       <%for (let todo of todo_list) {%>
+        <div class="todo">
+        <div class="task">
+          <div class="input">
+            <input style="transform: scale(1.5);" type="checkbox" id="<%=todo._id%>" name="ids" value="<%=todo._id%>">
+            <label for="<%=todo._id%>"><%=todo.description%></label>
+          </div>
+       
+          <div class="category" style="display: inline-block;">
+            <%=todo.category%>
+  
+          </div>
+
+          <% 
+            date=new Date(todo.due_date);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); 
+            const year = date.getFullYear();
+            const formattedDate = `${day}-${month}-${year}`;
+            
+
+            
+            
+          %>
+          </div>
+          
+          <p data-time="<%=todo.due_date%>" class="due_date">Due: <%= formattedDate%>
+          
+          </p> 
+          
+        </div>
+        
+        <% } %>
+      
+   </form>
+   </div>
+  </div>
+
+  <script src="/js/scripts.js"></script>
+</body>
+
+</html>
